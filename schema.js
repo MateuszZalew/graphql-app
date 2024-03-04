@@ -20,7 +20,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    reviews: [Reviews]
+    reviews: [Review]
     games: [Game]
     authors: [Author]
   }
