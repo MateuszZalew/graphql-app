@@ -42,6 +42,29 @@ const resolvers = {
       return db.games.find((game) => game.id === parent.game_id);
     },
   },
+  Mutation: {
+    deleteGame(_, args) {
+      db.games = db.games.filter((game) => game.id !== args.id);
+      return db.games;
+    },
+    addGame(_, args) {
+      const game = {
+        ...args.game,
+        id: Math.floor(Math.random() * 1000 + db.games.length).toString(),
+      };
+      db.games.push(game);
+      return game;
+    },
+    updateGame(_, args) {
+      db.games = db.games.map((game) => {
+        if (game.id === args.id) {
+          return { ...game, ...args.edits };
+        }
+        return game;
+      });
+      return db.games.find((game) => game.id === args.id);
+    },
+  },
 };
 
 const server = new ApolloServer({
